@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "172.18.0.1",
+            "port": 33075,
+            "driver": "MySQL",
+            "name": "symfony_db",
+            "username": "root",
+            "database": "symfony_db",
+            "password": "root"
+        }
+    ]
+}
