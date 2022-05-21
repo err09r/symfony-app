@@ -6,13 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController extends AbstractController
+class TestController extends AbstractController
 {
-    #[Route('/article', name: 'app_article')]
+
+    #[Route('/', name: 'homepage', methods: ['GET'])]
     public function index(): Response
     {
-        return $this->render('article/index.html.twig', [
-            'controller_name' => 'ArticleController',
-        ]);
+        return $this->render('base.html.twig');
     }
 }

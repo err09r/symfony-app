@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-    {% block head %}
+    <head>
+        <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-    {% endblock %}
-</head>
-<body>
-<div>{% block content %}{% endblock %}</div>
-</body>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {% endblock %}
+    <body>
+        {% block body %}<h1>Hello Hello</h1>{% endblock %}
+    </body>
 </html>
