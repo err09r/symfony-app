@@ -1,0 +1,48 @@
+{% extends "./base.html.twig" %}
+
+{% block body%}
+
+    <div class="mx-auto w-4/5 my-8">
+        <a href="/create" class="uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+            Create new article
+        </a>
+    </div>
+
+    <div class="grid grid-cols-3 p-4 pb-12">
+        {% for article in articles %}
+            <div class="group bg-white w-4/5 mx-auto my-6 p-8 shadow-xl transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+
+                <h1 class="text-4xl font-bold text-center">
+                    {{ article.title }}
+                </h1>
+
+                <img class="shadow-lg pt-8" src="{{ article.imageSrc }}"/>
+
+                <div class="py-8 text-center">
+                    <div class="inline-block sm:pt-1">
+                        <h2 class="font-medium">
+                            By <span class="italic">username&nbsp&nbsp<span class="not-italic">|</span>&nbsp&nbsp{{ article.creationDate }} </span>
+                        </h2>
+
+                        <p class="text-sm text-zinc-500 transition duration-300 transition-all group-hover:text-zinc-100">
+                            {{ article.duration }} min. read
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-md pb-8 text-justify">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit porttitor aliquet. Sed at porta erat. Cras mattis accumsan mi quis cursus.
+                </p>
+
+                <a href="/article/{{ article.id }}" class="block text-center font-medium w-fill bg-zinc-700 text-white uppercase text-lg p-4 transition duration-300 transition-all group-hover:bg-white group-hover:text-zinc-700">
+                    Read
+                </a>
+
+                <p class="text-right pt-6 text-sm text-zinc-500 transition duration-300 group-hover:text-zinc-100" href="/">
+                    Comments: 0
+                </p>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
