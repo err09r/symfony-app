@@ -51,25 +51,25 @@ class Category
         return $this->articles;
     }
 
-    public function addArticle(Article $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->setCategory($this);
-        }
+    // public function addArticle(Article $article): self
+    // {
+    //     if (!$this->articles->contains($article)) {
+    //         $this->articles[] = $article;
+    //         $article->setCategory($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeArticle(Article $article): self
-    {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getCategory() === $this) {
-                $article->setCategory(null);
-            }
-        }
+    // public function removeArticle(Article $article): self
+    // {
+    //     if ($this->articles->removeElement($article)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($article->getCategory() === $this) {
+    //             $article->setCategory(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
