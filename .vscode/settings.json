@@ -13,5 +13,7 @@
             "database": "symfony_db",
             "password": "root"
         }
-    ]
+    ],
+    "editor.fontSize": 16,
+    "editor.cursorStyle": "line-thin"
 }
