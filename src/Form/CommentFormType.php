@@ -16,7 +16,8 @@ class CommentFormType extends AbstractType
             ->add('content', TextareaType::class, [
                 'attr' => array(
                     'class' => 'block p-4 border border-zinc-700 border-0 w-full h-60 text-2xl',
-                    'placeholder' => 'Enter comment...'
+                    'placeholder' => 'Enter comment...',
+                    'autocomplete' => 'off'
                 ),
                 'label' => false,
                 'required' => false,

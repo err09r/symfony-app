@@ -5,7 +5,18 @@
 {% block body %}
     <div class="p-16 pt-10">
 
-        <div class="bg-white p-16 shadow-xl">
+        <div class="bg-white p-16 shadow-xl mx-auto">
+
+                {% if app.user ? app.user.username is same as (article.username) %}
+                    <div class="flex gap-8 justify-end mb-8">
+                        <a href="/article/edit/{{ article.id }}" class="w-1/4 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+                            Edit article
+                        </a>
+                        <a href="/article/delete/{{ article.id }}" class="w-1/4 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+                            Delete article
+                        </a>
+                    </div>
+                {% endif %}
 
                 <img class="w-full" src="{{ article.imageSrc }}"/>
 
@@ -14,24 +25,31 @@
                 </h1>
 
                 <p class="text-2xl text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit porttitor aliquet. Sed at porta erat. Cras mattis accumsan mi quis cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit porttitor aliquet. Sed at porta erat. Cras mattis accumsan mi quis cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit porttitor aliquet. Sed at porta erat. Cras mattis accumsan mi quis cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit porttitor aliquet. Sed at porta erat. Cras mattis accumsan mi quis cursus.
+                    {{ article.content }}
                 </p>
 
                 <p class="text-right text-md text-zinc-500 pt-10">
-                    Author: Username&nbsp&nbsp|&nbsp&nbspDate: {{ article.creationDate }}
+                    Category: {{ article.category.title }}&nbsp&nbsp|&nbsp&nbspAuthor: {{ article.username }}&nbsp&nbsp|&nbsp&nbspDate: {{ article.creationDate }}
                 </p>
 
-                <div class="mt-24">
-                    {{ form_start(form) }}
+                <div 
+                    {% if article.isCommentable == true %}
+                        class="mt-24"
+                    {% else %}
+                        class="hidden mt-24"
+                    {% endif %}>
 
-                        {{ form_widget(form) }}
+                    {{ form_start(comment_form) }}
+
+                        {{ form_widget(comment_form) }}
                             <div class="flex justify-end">
-                                <button class="mt-8 w-3/12 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-8 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white" type="submit">
+                                <button type="submit" class="mt-8 w-3/12 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-8 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white" type="submit">
                                     Leave comment
                                 </button>
                             </div>
 
-                    {{ form_end(form) }}
+                    {{ form_end(comment_form) }}
+
                 </div>
             
         </div>
@@ -42,11 +60,12 @@
 
         {% for comment in comments %}
             <div class="p-8 bg-white shadow-xl mb-8">
-                <a class="font-medium text-xl">Username</a>
+                <a class="font-medium text-xl">{{ comment.username }}</a>
                 <p class="text-sm text-zinc-500">{{ comment.creationDate }}</p>
                 <p class="py-4 text-justify text-lg">{{ comment.content }}</p>
             </div>
         {% endfor %}
 
     </div>
+
 {% endblock %}

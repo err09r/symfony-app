@@ -7,17 +7,50 @@
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
         {% endblock %}
     </head>
-    <header class="bg-zinc-700 h-16 text-white shadow-md fixed inset-x-0 top-0 p-4">
-        {% block header %}
-            <a href = "/"class="pl-16 font-medium text-2xl">Articles.com</a>
-        {% endblock %}
-    </header>
-    <body class="bg-zinc-200 text-zinc-800 pt-16">
-        {% block body %}{% endblock %}
-    </body>
-    <footer class="text-center text-white flex-auto p-4 bg-zinc-500">
-        <a href="mailto:raman.makarewicz@gmail.com">
-            2022 Raman Makarevich&nbsp&nbsp|&nbsp&nbspAkademia Pomorska
-        </a>
-    </footer>
+
+    <div class="flex flex-col h-screen justify-between">
+        <header class="bg-zinc-700 h-16 text-white shadow-md fixed inset-x-0 top-0">
+            {% block header %}
+                <div class="h-full mx-12 flex justify-between">
+
+                    <a href = "/" class="font-bold text-2xl my-auto">
+                        Articles.com
+                    </a>
+
+                    <div class="underline flex flex-rows justify-center gap-12 my-auto">
+                        {% for category in categories %}
+                            <a
+                                href="/category/{{ category.title|lower }}"
+                                class="h-full">
+                                    {{ category.title|upper }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="my-auto flex justify-between gap-12 text-lg font-medium">
+                        <a href = "/{{ app.user ? 'logout' : 'login' }}" class="my-auto ">
+                            {{ app.user ? 'LOGOUT' : 'LOGIN' }}
+                        </a>  
+
+                        <a href="/{{ app.user ? 'profile' : 'register' }}" class="my-auto">
+                            {% if app.user %}
+                                WELCOME, {{ app.user.username|upper }}
+                            {% else %}
+                                REGISTER
+                            {% endif %}
+                        </a> 
+                    </div>
+                                          
+                </div>
+            {% endblock %}
+        </header>
+        <body class="bg-zinc-200 text-zinc-800 pt-16 h-full">
+            {% block body %}{% endblock %}
+        </body>
+        <footer class="text-center text-white p-4 bg-zinc-500">
+            <a href="mailto:raman.makarewicz@gmail.com">
+                2022 Raman Makarevich&nbsp&nbsp|&nbsp&nbspAkademia Pomorska
+            </a>
+        </footer>
+    </div>
 </html>

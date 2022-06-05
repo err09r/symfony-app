@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -14,6 +15,8 @@ class Article
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 4)]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -27,13 +30,23 @@ class Article
     private $category;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Range(min: 1, max: 99, notInRangeMessage: 'Reading duration must be between {{ min }} minutes and {{ max }} minutes.')]
     private $duration;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\NotBlank]
     private $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\NotBlank]
     private $content;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $isCommentable;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $username;
 
     public function getId(): ?int
     {
@@ -45,7 +58,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -120,6 +133,30 @@ class Article
     public function setContent(?string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function isIsCommentable(): ?bool
+    {
+        return $this->isCommentable;
+    }
+
+    public function setIsCommentable(?bool $isCommentable): self
+    {
+        $this->isCommentable = $isCommentable;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

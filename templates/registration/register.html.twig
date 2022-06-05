@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register | Articles.com{% endblock %}
+
+{% block body %}
+     <div class="p-16 pt-10 w-2/5 mx-auto">
+
+        <div class="bg-white p-16 shadow-xl">
+
+            <h1 class="text-5xl font-bold text-center pb-12">
+                Register
+            </h1>
+
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.username) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <div class="mx-auto w-full">
+                    <button    
+                        type="submit"
+                        class="w-full uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-8 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+                            Register
+                    </button>
+                </div>
+            {{ form_end(registrationForm) }}
+
+        </div>
+    </div>
+{% endblock %}

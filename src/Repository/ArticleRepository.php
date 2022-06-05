@@ -39,20 +39,20 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Article[] Returns an array of Article objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Article[] Returns an array of Article objects
+    */
+   public function findAllByDateDescending(): array
+   {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a FROM App\Entity\Article a
+            ORDER BY strtodate(a.creationDate, \'%d.%m.%Y\') DESC'
+        );
+
+        return $query->getResult();
+   }
 
 //    public function findOneBySomeField($value): ?Article
 //    {

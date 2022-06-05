@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -14,10 +15,17 @@ class Comment
     private $id;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private $content;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $creationDate;
+
+    #[ORM\ManyToOne(targetEntity: Article::class)]
+    private $article;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $username;
 
     public function getId(): ?int
     {
@@ -41,9 +49,33 @@ class Comment
         return $this->creationDate;
     }
 
-    public function setCreationDate(string $creationDate): self
+    public function setCreationDate($creationDate): self
     {
         $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

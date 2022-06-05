@@ -2,11 +2,13 @@
 
 {% block body%}
 
-    <div class="mx-auto w-4/5 my-8">
-        <a href="/create" class="uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
-            Create new article
-        </a>
-    </div>
+    {% if app.user %}
+        <div class="flex gap-4 justify-end mt-8 px-16">
+            <a href="/article/create" class="mx-2 w-1/4 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+                Create new article
+            </a>
+        </div>
+    {% endif %}
 
     <div class="grid grid-cols-3 p-4 pb-12">
         {% for article in articles %}
@@ -21,7 +23,7 @@
                 <div class="py-8 text-center">
                     <div class="inline-block sm:pt-1">
                         <h2 class="font-medium">
-                            By <span class="italic">username&nbsp&nbsp<span class="not-italic">|</span>&nbsp&nbsp{{ article.creationDate }} </span>
+                            By <span class="italic">{{ article.username }}&nbsp&nbsp<span class="not-italic">|</span>&nbsp&nbsp{{ article.creationDate }} </span>
                         </h2>
 
                         <p class="text-sm text-zinc-500 transition duration-300 transition-all group-hover:text-zinc-100">
@@ -31,15 +33,21 @@
                 </div>
 
                 <p class="text-md pb-8 text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit porttitor aliquet. Sed at porta erat. Cras mattis accumsan mi quis cursus.
+                    {{ article.description }}
                 </p>
 
-                <a href="/article/{{ article.id }}" class="block text-center font-medium w-fill bg-zinc-700 text-white uppercase text-lg p-4 transition duration-300 transition-all group-hover:bg-white group-hover:text-zinc-700">
+                <a href="/article/show/{{ article.id }}" class="block text-center font-medium w-fill bg-zinc-700 text-white uppercase text-lg p-4 transition duration-300 transition-all group-hover:bg-white group-hover:text-zinc-700">
                     Read
                 </a>
 
                 <p class="text-right pt-6 text-sm text-zinc-500 transition duration-300 group-hover:text-zinc-100" href="/">
-                    Comments: 0
+                    {% set commentNumber = 0 %}
+                    {% for comment in comments %} 
+                        {% if comment.article == article %}
+                            {% set commentNumber = commentNumber + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    Comments: {{ commentNumber }}
                 </p>
 
             </div>
