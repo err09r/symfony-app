@@ -38,6 +38,10 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            if ($user->getUserName() == 'admin') {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

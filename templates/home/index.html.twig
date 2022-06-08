@@ -2,7 +2,7 @@
 
 {% block body%}
 
-    {% if app.user %}
+    {% if is_granted('ROLE_ADMIN') %}
         <div class="flex gap-4 justify-end mt-8 px-16">
             <a href="/article/create" class="mx-2 w-1/4 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
                 Create new article
