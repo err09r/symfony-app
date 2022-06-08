@@ -9,6 +9,9 @@
 
                 {% if app.user ? app.user.username is same as (article.username) %}
                     <div class="flex gap-8 justify-end mb-8">
+                        <a href="/poll/create/{{ article.id }}" class="w-1/4 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
+                            Create poll
+                        </a>
                         <a href="/article/edit/{{ article.id }}" class="w-1/4 uppercase border border-zinc-700 border-2 bg-white text-zinc-700 text-center py-4 px-10 text-lg font-medium transition duration-300 transition-all hover:bg-zinc-700 hover:text-white">
                             Edit article
                         </a>

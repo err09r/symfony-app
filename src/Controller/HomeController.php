@@ -40,17 +40,4 @@ class HomeController extends AbstractController
             'categories' => $this->categoryRepository->findAll()
         ]);
     }
-
-    #[Route('/category/{title}', name: 'app_category')]
-    public function category($title): Response
-    {
-        $category = $this->categoryRepository->findBy(['title' => $title])[0];
-        $articles = $this->articleRepository->findBy(['category' => $category]);
-
-        return $this->render('home/index.html.twig', [
-            'articles' => $articles,
-            'categories' =>$this->categoryRepository->findAll(),
-            'comments' => $this->commentRepository->findAll()
-        ]);
-    }
 }

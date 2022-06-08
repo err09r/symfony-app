@@ -11,13 +11,13 @@
     <div class="flex flex-col h-screen justify-between">
         <header class="bg-zinc-700 h-16 text-white shadow-md fixed inset-x-0 top-0">
             {% block header %}
-                <div class="h-full mx-12 flex justify-between">
+                <div class="h-full flex justify-between">
 
-                    <a href = "/" class="font-bold text-2xl my-auto">
+                    <a href = "/" class="font-bold ml-12 text-2xl my-auto">
                         Articles.com
                     </a>
 
-                    <div class="underline flex flex-rows justify-center gap-12 my-auto">
+                    <div class="underline flex flex-rows justify-start gap-12 my-auto">
                         {% for category in categories %}
                             <a
                                 href="/category/{{ category.title|lower }}"
@@ -26,8 +26,14 @@
                             </a>
                         {% endfor %}
                     </div>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="/category/create" class="p-2 border border-dashed border-2 border-bg-zinc-300 my-auto">
+                            NEW CATEGORY
+                        </a><div></div>
+                    {% endif %}
                     
-                    <div class="my-auto flex justify-between gap-12 text-lg font-medium">
+                    <div class="my-auto mr-12 flex justify-between gap-12 text-lg font-medium">
                         <a href = "/{{ app.user ? 'logout' : 'login' }}" class="my-auto ">
                             {{ app.user ? 'LOGOUT' : 'LOGIN' }}
                         </a>  
